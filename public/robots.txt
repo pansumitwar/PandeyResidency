@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /gallery
+Allow: /nearby-places
+Allow: /contact-booking
+Disallow: /admin
+Disallow: /admin/dashboard
+
+Sitemap: https://hotelpandeyresidency.com/sitemap.xml
