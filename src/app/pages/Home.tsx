@@ -76,9 +76,9 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=1920"
+            src="src\app\components\figma\kedarnath-4k.jpg"
             alt="Hotel Pandey Residency"
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover brightness-75"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
@@ -88,9 +88,9 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold mb-6"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-slate-50 mb-6 animate-fade-in"
           >
-            Welcome to Paradise
+            Welcome to Hotel Pandey Residency
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 30 }}
@@ -124,6 +124,33 @@ export default function Home() {
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
           <div className="w-6 h-10 border-2 border-white rounded-full flex items-start justify-center p-2">
             <div className="w-1 h-3 bg-white rounded-full animate-pulse" />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-12 md:py-16 bg-slate-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 text-center px-4">
+            {/* The Shloka */}
+            <p className="text-lg md:text-xl font-bold tracking-wide text-emerald-300 mb-3 leading-relaxed">
+              {/* समस्त पापकर्मणां विपावकं कलेवरं <br />
+              विशाल-बद्रिकाश्रमे नमामि मुक्तिदायकम् */}
+
+              केदारनाथं महादेवं भक्तानामभयप्रदम् । <br />
+              हिमालये तु विराजन्तं नमामि शिवरूपिणम् ॥
+            </p>
+
+            {/* The Meaning */}
+            <p className="text-xs md:text-sm italic tracking-normal text-emerald-100/80 max-w-md mx-auto">
+              {/* "समस्त पापों को नष्ट करने वाले और मोक्ष प्रदान करने वाले,
+              विशाल बदरिकाश्रम में विराजमान भगवान को मैं नमन करता हूँ।" */}
+
+              “हिमालय की पावन वादियों में विराजमान, भक्तों को शांति, सुरक्षा और आशीर्वाद प्रदान करने वाले भगवान केदारनाथ को हम नमन करते हैं। <br />
+              आपका स्वागत है देवभूमि के इस दिव्य एवं शांतिमय प्रवास में।”
+            </p>
+          </div>
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-black">
+
           </div>
         </div>
       </section>

@@ -39,8 +39,16 @@ export default function Navbar() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center gap-3 group">
-            <div className={`p-2 rounded-lg transition-colors ${isScrolled ? 'bg-purple-600' : 'bg-white/20'}`}>
-              <Mountain className={`w-6 h-6 ${isScrolled ? 'text-white' : 'text-white'}`} />
+            <div 
+            // className={`p-2 rounded-lg transition-colors ${isScrolled ? 'bg-purple-600' : 'bg-white/20'}`}
+            >
+              {/* <Mountain className={`w-6 h-6 ${isScrolled ? 'text-white' : 'text-white'}`} /> */}
+
+              <img
+                src="src\app\components\figma\pandey-logo.png"
+                alt="Hotel Pandey Residency Logo"
+                className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-lg"
+              />
             </div>
             <div>
               <h1 className={`text-xl font-bold transition-colors ${isScrolled ? 'text-gray-900' : 'text-white'}`}>

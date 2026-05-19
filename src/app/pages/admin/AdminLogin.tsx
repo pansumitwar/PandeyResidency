@@ -96,13 +96,13 @@ export default function AdminLogin() {
           </button>
         </form>
 
-        <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+        {/* <div className="mt-6 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-gray-600 text-center">
             <strong>Demo Credentials:</strong>
             <br />
             Username: admin | Password: admin123
           </p>
-        </div>
+        </div> */}
       </motion.div>
     </div>
   );

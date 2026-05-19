@@ -59,7 +59,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-bold text-lg mb-4">Location Map</h4>
+            {/* <h4 className="font-bold text-lg mb-4">Location Map</h4>
             <div className="rounded-lg overflow-hidden mb-4">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3454.234!2d79.0833!3d30.5333!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzDCsDMyJzAwLjAiTiA3OcKwMDUnMDAuMCJF!5e0!3m2!1sen!2sin!4v1234567890"
@@ -71,7 +71,7 @@ export default function Footer() {
                 referrerPolicy="no-referrer-when-downgrade"
                 title="Hotel Location"
               />
-            </div>
+            </div> */}
             <div className="flex gap-3">
               <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-white/20 transition-colors">
