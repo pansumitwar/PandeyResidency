@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import SEO from '../components/SEO';
 import { ImageWithFallback } from '../components/ImageWithFallback';
+import kedarnathBg from '../components/figma/kedarnath-4k.jpg';
 
 export default function Home() {
   const highlights = [
@@ -76,7 +77,7 @@ export default function Home() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="src\app\components\figma\kedarnath-4k.jpg"
+            src={kedarnathBg}
             alt="Hotel Pandey Residency"
             className="w-full h-full object-cover brightness-75"
           />

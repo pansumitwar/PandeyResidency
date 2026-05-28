@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { Menu, X, Phone, Mountain } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import pandeyLogo from './figma/pandey-logo.png';
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -45,7 +46,7 @@ export default function Navbar() {
               {/* <Mountain className={`w-6 h-6 ${isScrolled ? 'text-white' : 'text-white'}`} /> */}
 
               <img
-                src="src\app\components\figma\pandey-logo.png"
+                src={pandeyLogo}
                 alt="Hotel Pandey Residency Logo"
                 className="w-14 h-14 rounded-full object-cover border-2 border-white shadow-lg"
               />
