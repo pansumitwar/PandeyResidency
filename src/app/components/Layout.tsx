@@ -3,6 +3,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import FloatingButtons from './FloatingButtons';
 import ScrollToTop from './ScrollToTop';
+import SEO from './SEO';
 import { useEffect, useState } from 'react';
 
 export default function Layout() {
@@ -32,6 +33,7 @@ export default function Layout() {
 
   return (
     <div className="min-h-screen flex flex-col">
+      <SEO />
       <Navbar />
       <main className="flex-1">
         <Outlet />

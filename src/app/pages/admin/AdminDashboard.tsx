@@ -13,20 +13,12 @@ import {
   Mountain,
 } from 'lucide-react';
 import { toast } from 'sonner';
-
-interface Booking {
-  id: string;
-  fullName: string;
-  phone: string;
-  email: string;
-  roomType: string;
-  guests: number;
-  checkIn: string;
-  checkOut: string;
-  specialRequest: string;
-  status: 'Pending' | 'Confirmed' | 'Cancelled';
-  createdAt: string;
-}
+import {
+  Booking,
+  deleteBookingById,
+  getBookings,
+  updateBookingStatus,
+} from '../../../lib/bookingService';
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -45,9 +37,14 @@ export default function AdminDashboard() {
     loadBookings();
   }, [navigate]);
 
-  const loadBookings = () => {
-    const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-    setBookings(storedBookings);
+  const loadBookings = async () => {
+    try {
+      const storedBookings = await getBookings();
+      setBookings(storedBookings);
+    } catch (error) {
+      console.error(error);
+      toast.error('Unable to load bookings.');
+    }
   };
 
   const handleLogout = () => {
@@ -56,22 +53,28 @@ export default function AdminDashboard() {
     navigate('/admin');
   };
 
-  const confirmBooking = (id: string) => {
-    const updatedBookings = bookings.map((booking) =>
-      booking.id === id ? { ...booking, status: 'Confirmed' as const } : booking
-    );
-    setBookings(updatedBookings);
-    localStorage.setItem('bookings', JSON.stringify(updatedBookings));
-    toast.success('Booking confirmed successfully');
-    setSelectedBooking(null);
+  const confirmBooking = async (id: string) => {
+    try {
+      await updateBookingStatus(id, 'Confirmed');
+      await loadBookings();
+      toast.success('Booking confirmed successfully');
+      setSelectedBooking(null);
+    } catch (error) {
+      console.error(error);
+      toast.error('Unable to confirm booking.');
+    }
   };
 
-  const deleteBooking = (id: string) => {
-    const updatedBookings = bookings.filter((booking) => booking.id !== id);
-    setBookings(updatedBookings);
-    localStorage.setItem('bookings', JSON.stringify(updatedBookings));
-    toast.success('Booking deleted successfully');
-    setSelectedBooking(null);
+  const deleteBooking = async (id: string) => {
+    try {
+      await deleteBookingById(id);
+      await loadBookings();
+      toast.success('Booking deleted successfully');
+      setSelectedBooking(null);
+    } catch (error) {
+      console.error(error);
+      toast.error('Unable to delete booking.');
+    }
   };
 
   const filteredBookings = bookings.filter((booking) => {

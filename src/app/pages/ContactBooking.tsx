@@ -15,6 +15,7 @@ import {
 import { toast } from 'sonner';
 import SEO from '../components/SEO';
 import { ImageWithFallback } from '../components/ImageWithFallback';
+import { Booking, createBooking } from '../../lib/bookingService';
 
 interface BookingFormData {
   fullName: string;
@@ -41,26 +42,29 @@ export default function ContactBooking() {
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
 
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    const bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-    const newBooking = {
+    const newBooking: Booking = {
       id: Date.now().toString(),
       ...data,
       status: 'Pending',
       createdAt: new Date().toISOString(),
     };
-    bookings.push(newBooking);
-    localStorage.setItem('bookings', JSON.stringify(bookings));
 
-    setIsSubmitting(false);
-    setShowSuccess(true);
-    toast.success('Booking request submitted successfully!');
-    reset();
-
-    setTimeout(() => {
-      setShowSuccess(false);
-    }, 5000);
+    try {
+      await createBooking(newBooking);
+      toast.success('Booking request submitted successfully!');
+      reset();
+      setShowSuccess(true);
+    } catch (error) {
+      console.error(error);
+      toast.error('Unable to submit booking. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => {
+        setShowSuccess(false);
+      }, 5000);
+    }
   };
 
   return (
