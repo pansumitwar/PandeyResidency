@@ -12,21 +12,29 @@ export default function Gallery() {
   const categories = ['All', 'Rooms', 'Exterior', 'Restaurant', 'Nearby Views', 'Temple Route'];
 
   const images = [
-    { src: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800', category: 'Rooms', alt: 'Deluxe Room' },
-    { src: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800', category: 'Rooms', alt: 'Premium Room' },
-    { src: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800', category: 'Rooms', alt: 'Family Room' },
-    { src: 'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800', category: 'Exterior', alt: 'Hotel Exterior' },
-    { src: 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800', category: 'Exterior', alt: 'Hotel Front View' },
-    { src: 'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800', category: 'Exterior', alt: 'Hotel Building' },
-    { src: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800', category: 'Restaurant', alt: 'Restaurant Interior' },
-    { src: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800', category: 'Restaurant', alt: 'Dining Area' },
-    { src: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=800', category: 'Restaurant', alt: 'Food Service' },
-    { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800', category: 'Nearby Views', alt: 'Mountain View' },
-    { src: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800', category: 'Nearby Views', alt: 'Himalayan Landscape' },
-    { src: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800', category: 'Nearby Views', alt: 'Nature View' },
-    { src: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800', category: 'Temple Route', alt: 'Temple Path' },
-    { src: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800', category: 'Temple Route', alt: 'Kedarnath Route' },
-    { src: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800', category: 'Temple Route', alt: 'Pilgrimage Path' },
+    // Rooms
+    { src: 'https://r1imghtlak.mmtcdn.com/362cadd8-eb24-4b75-8cc1-96ccdadf4641.jpg', category: 'Rooms', alt: 'Room 1' },
+    { src: 'https://r1imghtlak.mmtcdn.com/36dd2b48-22ba-418f-9a1b-e3b7308af9c9.jpg', category: 'Rooms', alt: 'Room 2' },
+    { src: 'https://r1imghtlak.mmtcdn.com/ef945172-b445-4463-982c-7e6d184e4995.jpg', category: 'Rooms', alt: 'Room 3' },
+    { src: 'https://r1imghtlak.mmtcdn.com/651fa81a-6a6f-42aa-b911-ea2217a6abd6.jpg', category: 'Rooms', alt: 'Room 4' },
+    { src: 'https://r1imghtlak.mmtcdn.com/b39649c4-f62e-4a08-aae2-6d751b48eaf5.jpeg', category: 'Rooms', alt: 'Room 5' },
+    // Outdoors/Exterior
+    { src: 'https://r1imghtlak.mmtcdn.com/a7988a35-eeed-4ff1-af62-d538aa6cc7e8.jpg', category: 'Exterior', alt: 'Outdoor View 1' },
+    { src: 'https://r1imghtlak.mmtcdn.com/4531c351-b78c-465c-bab7-7b87ec045ca7.jpg', category: 'Exterior', alt: 'Outdoor View 2' },
+    { src: 'https://r1imghtlak.mmtcdn.com/0d9787ae-837f-41e9-b132-965b8ad3bca0.jpg', category: 'Exterior', alt: 'Outdoor View 3' },
+    { src: 'https://r1imghtlak.mmtcdn.com/03386f4f-05e2-4fae-9199-b6ee1fb3075e.jpg', category: 'Exterior', alt: 'Outdoor View 4' },
+    // Hotel Facade
+    { src: 'https://r1imghtlak.mmtcdn.com/71c42f74-ac1f-4845-b943-f235524aeafb.jpeg', category: 'Exterior', alt: 'Hotel Facade 1' },
+    { src: 'https://r1imghtlak.mmtcdn.com/7cd6d47f-10c9-4052-9995-11cff2586933.jpg', category: 'Exterior', alt: 'Hotel Facade 2' },
+    // Reception & Other Areas
+    { src: 'https://r1imghtlak.mmtcdn.com/ef4ab9d1-77fa-4928-a63d-1a3a524f96d9.jpg', category: 'All', alt: 'Reception Area 1' },
+    { src: 'https://r1imghtlak.mmtcdn.com/96ce198e-9bb8-4ab0-8b20-d4b45743af88.jpg', category: 'All', alt: 'Reception Area 2' },
+    // Entrance
+    { src: 'https://r1imghtlak.mmtcdn.com/4754a148-0419-4526-a2e2-2d5d2b21297f.jpg', category: 'All', alt: 'Hotel Entrance' },
+    // Washroom
+    { src: 'https://r1imghtlak.mmtcdn.com/f27b26b8-bc57-449a-a1dd-e9877b18e548.jpg', category: 'All', alt: 'Bathroom' },
+    // Restaurant
+    { src: 'https://r1imghtlak.mmtcdn.com/c0a1cef1-b6ca-4a3b-b74b-0ea519637de2.jpeg', category: 'Restaurant', alt: 'Restaurant Area' },
   ];
 
   const filteredImages = selectedCategory === 'All'

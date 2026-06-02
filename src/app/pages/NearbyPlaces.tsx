@@ -9,37 +9,37 @@ export default function NearbyPlaces() {
       name: 'Kedarnath Temple',
       distance: '30 km',
       description: 'One of the twelve Jyotirlingas of Lord Shiva, located at an altitude of 3,583 meters. A sacred pilgrimage site attracting thousands of devotees annually.',
-      image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?w=800',
+      image: 'https://i.postimg.cc/pLmyzSZ8/Kedarnath-Temple.webp',
     },
     {
       name: 'Guptkashi Temple',
       distance: '1 km',
       description: 'Ancient temples dedicated to Lord Shiva and Goddess Parvati. A must-visit spiritual site with beautiful architecture and peaceful atmosphere.',
-      image: 'https://images.unsplash.com/photo-1548013146-72479768bada?w=800',
+      image: 'https://i.postimg.cc/d1sYmkYn/Guptkashi-Temple.jpg',
     },
     {
       name: 'Sonprayag',
       distance: '15 km',
       description: 'Confluence of rivers Basuki and Mandakini. Starting point for Kedarnath trek with stunning natural beauty and serene environment.',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800',
+      image: 'https://i.postimg.cc/MTTLpywN/Sonprayag.jpg',
     },
     {
       name: 'Triyuginarayan Temple',
       distance: '25 km',
       description: 'Ancient temple believed to be the wedding venue of Lord Shiva and Goddess Parvati. Features an eternal flame that has been burning for ages.',
-      image: 'https://images.unsplash.com/photo-1605649487212-47bdab064df7?w=800',
+      image: 'https://i.postimg.cc/nrqgynpj/Triyuginarayan-Temple.jpg',
     },
     {
       name: 'Ukhimath',
       distance: '20 km',
       description: 'Winter seat of Kedarnath deity. Beautiful town with temples and panoramic views of snow-capped peaks.',
-      image: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=800',
+      image: 'https://i.postimg.cc/VkkZRqrQ/Ukhimath.jpg',
     },
     {
       name: 'Chopta',
       distance: '65 km',
       description: 'Known as "Mini Switzerland of India". Base for Tungnath temple trek with breathtaking meadows and Himalayan views.',
-      image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800',
+      image: 'https://i.postimg.cc/QdvgT1pL/Chopta.webp',
     },
   ];
 
@@ -47,7 +47,8 @@ export default function NearbyPlaces() {
     <div>
       <SEO
         title="Nearby Places - Hotel Pandey Residency | Tourist Attractions in Guptkashi"
-        description="Explore nearby tourist attractions from Hotel Pandey Residency including Kedarnath Temple, Guptkashi Temple, Sonprayag, and more sacred places in Uttarakhand."
+        description="Explore nearby tourist attractions from Hotel Pandey Residency including Kedarnath Temple, Triyuginarayan, Sonprayag, and other sacred places near Guptkashi."
+        keywords="hotel in guptkashi, hotel near kedarnath, kedarnath hotel, triyuginarayan, trijuginarayan, hotels near kedarnath, guptkashi stay"
       />
 
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
@@ -121,9 +122,7 @@ export default function NearbyPlaces() {
                     <h3 className="text-xl font-bold">{place.name}</h3>
                   </div>
                   <p className="text-gray-600 mb-4">{place.description}</p>
-                  <button className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all hover:scale-105">
-                    Get Directions
-                  </button>
+                  
                 </div>
               </motion.div>
             ))}

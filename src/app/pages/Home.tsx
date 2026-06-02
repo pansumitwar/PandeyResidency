@@ -27,22 +27,22 @@ export default function Home() {
 
   const rooms = [
     {
-      name: 'Single Bed Room',
+      name: 'Standard Room',
       price: '₹1,500',
-      image: 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600',
-      features: ['1 Single Bed', 'Attached Bathroom', 'TV', 'Hot Water'],
+      image: 'https://r1imghtlak.mmtcdn.com/750dec07-f94c-41f6-8c47-2886afea4164.jpeg',
+      features: ['Comfortable bed', 'Attached Bathroom', 'Free WiFi', 'Hot Water'],
     },
     {
-      name: 'Double Bed Room',
-      price: '₹2,500',
-      image: 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=600',
-      features: ['1 Double Bed', 'Attached Bathroom', 'TV', 'Mountain View'],
+      name: 'Deluxe Room',
+      price: '₹2,800',
+      image: 'https://r1imghtlak.mmtcdn.com/7cd6d47f-10c9-4052-9995-11cff2586933.jpg',
+      features: ['King/Queen bed', 'Mountain View (select rooms)', 'Attached Bathroom', 'TV & Tea/Coffee'],
     },
     {
-      name: 'Four Bed Family Room',
-      price: '₹4,000',
-      image: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=600',
-      features: ['4 Beds', 'Spacious', 'Attached Bathroom', 'Perfect for Families'],
+      name: 'Premium Room',
+      price: '₹4,500',
+      image: 'https://r1imghtlak.mmtcdn.com/ef945172-b445-4463-982c-7e6d184e4995.jpg',
+      features: ['Spacious layout', 'Best view rooms', 'Complimentary breakfast', 'Ideal for couples'],
     },
   ];
 
@@ -52,21 +52,21 @@ export default function Home() {
       location: 'Delhi',
       rating: 5,
       text: 'Excellent stay! The location is perfect for Kedarnath pilgrimage. Clean rooms and very hospitable staff.',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100',
+      image: 'https://i.postimg.cc/VkPL0Ndh/user1.png',
     },
     {
       name: 'Priya Sharma',
       location: 'Mumbai',
       rating: 5,
       text: 'Wonderful experience. The mountain view from the room was breathtaking. Highly recommended!',
-      image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100',
+      image: 'https://i.postimg.cc/9Mkcmm6Z/user2.jpg',
     },
     {
       name: 'Amit Verma',
       location: 'Bangalore',
       rating: 5,
       text: 'Great value for money. Clean, comfortable and the staff was very helpful. Will visit again!',
-      image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100',
+      image: 'https://i.postimg.cc/SjFq9ZNq/user3.png',
     },
   ];
 

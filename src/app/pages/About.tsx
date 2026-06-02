@@ -88,7 +88,7 @@ export default function About() {
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1920"
+            src="https://i.postimg.cc/3wcgTpxS/backimage1.webp"
             alt="About Hotel Pandey Residency"
             className="w-full h-full object-cover"
           />
@@ -150,7 +150,7 @@ export default function About() {
             >
               <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <ImageWithFallback
-                  src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800"
+                  src="https://i.postimg.cc/DzHbDTC7/hotel.webp"
                   alt="Hotel Exterior"
                   className="w-full h-96 object-cover"
                 />
@@ -253,7 +253,7 @@ export default function About() {
                 />
                 <div>
                   <h3 className="text-2xl font-bold">Message from the Owner</h3>
-                  <p className="text-white/80">Mr. Pandey, Proprietor</p>
+                  <p className="text-white/80">Mr. Manoj Pandey</p>
                 </div>
               </div>
               <p className="text-lg leading-relaxed text-white/90 mb-4">
