@@ -211,6 +211,9 @@ export default function AdminDashboard() {
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Guest Name</th>
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Phone</th>
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Room Type</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700">Meal Plan</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700">Nights</th>
+                  <th className="text-left py-3 px-4 font-semibold text-gray-700">Total</th>
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Check-In</th>
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Check-Out</th>
                   <th className="text-left py-3 px-4 font-semibold text-gray-700">Status</th>
@@ -220,7 +223,7 @@ export default function AdminDashboard() {
               <tbody>
                 {filteredBookings.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center py-8 text-gray-500">
+                    <td colSpan={9} className="text-center py-8 text-gray-500">
                       No bookings found
                     </td>
                   </tr>
@@ -230,6 +233,9 @@ export default function AdminDashboard() {
                       <td className="py-3 px-4">{booking.fullName}</td>
                       <td className="py-3 px-4">{booking.phone}</td>
                       <td className="py-3 px-4">{booking.roomType}</td>
+                      <td className="py-3 px-4">{booking.mealPlan || 'Not specified'}</td>
+                      <td className="py-3 px-4">{booking.nights || 1}</td>
+                      <td className="py-3 px-4">₹{(booking.totalAmount || 0).toLocaleString()}</td>
                       <td className="py-3 px-4">{new Date(booking.checkIn).toLocaleDateString()}</td>
                       <td className="py-3 px-4">{new Date(booking.checkOut).toLocaleDateString()}</td>
                       <td className="py-3 px-4">
@@ -316,6 +322,18 @@ export default function AdminDashboard() {
               <div>
                 <p className="text-sm text-gray-600 mb-1">Number of Guests</p>
                 <p className="font-semibold">{selectedBooking.guests}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Meal Plan</p>
+                <p className="font-semibold">{selectedBooking.mealPlan || 'Not specified'}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Stay Duration</p>
+                <p className="font-semibold">{selectedBooking.nights || 1} day{(selectedBooking.nights || 1) > 1 ? 's' : ''}</p>
+              </div>
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Total Amount</p>
+                <p className="font-semibold">₹{(selectedBooking.totalAmount || 0).toLocaleString()}</p>
               </div>
               <div>
                 <p className="text-sm text-gray-600 mb-1">Status</p>

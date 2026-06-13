@@ -18,6 +18,9 @@ export interface Booking {
   phone: string;
   email: string;
   roomType: string;
+  mealPlan: string;
+  totalAmount: number;
+  nights: number;
   guests: number;
   checkIn: string;
   checkOut: string;
@@ -30,10 +33,26 @@ const bookingsCollection = collection(db, 'bookings');
 
 export async function getBookings(): Promise<Booking[]> {
   const snapshot = await getDocs(query(bookingsCollection, orderBy('createdAt', 'desc')));
-  return snapshot.docs.map((docSnapshot) => ({
-    id: docSnapshot.id,
-    ...(docSnapshot.data() as Omit<Booking, 'id'>),
-  }));
+  return snapshot.docs.map((docSnapshot) => {
+    const data = docSnapshot.data() as Partial<Omit<Booking, 'id'>>;
+
+    return {
+      id: docSnapshot.id,
+      fullName: data.fullName ?? '',
+      phone: data.phone ?? '',
+      email: data.email ?? '',
+      roomType: data.roomType ?? '',
+      mealPlan: data.mealPlan ?? 'Not specified',
+      totalAmount: data.totalAmount ?? 0,
+      nights: data.nights ?? 1,
+      guests: data.guests ?? 1,
+      checkIn: data.checkIn ?? '',
+      checkOut: data.checkOut ?? '',
+      specialRequest: data.specialRequest ?? '',
+      status: (data.status as BookingStatus) ?? 'Pending',
+      createdAt: data.createdAt ?? new Date().toISOString(),
+    };
+  });
 }
 
 export async function createBooking(booking: Booking): Promise<Booking> {
@@ -42,6 +61,9 @@ export async function createBooking(booking: Booking): Promise<Booking> {
     phone: booking.phone,
     email: booking.email,
     roomType: booking.roomType,
+    mealPlan: booking.mealPlan,
+    totalAmount: booking.totalAmount,
+    nights: booking.nights,
     guests: booking.guests,
     checkIn: booking.checkIn,
     checkOut: booking.checkOut,

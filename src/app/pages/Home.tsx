@@ -27,22 +27,22 @@ export default function Home() {
 
   const rooms = [
     {
-      name: 'Standard Room',
-      price: '₹1,500',
+      name: 'Standard Double Bedroom',
+      price: '₹2,000',
       image: 'https://r1imghtlak.mmtcdn.com/750dec07-f94c-41f6-8c47-2886afea4164.jpeg',
-      features: ['Comfortable bed', 'Attached Bathroom', 'Free WiFi', 'Hot Water'],
+      features: ['Without breakfast', 'Comfortable double bed', 'Attached Bathroom', 'Free WiFi'],
     },
     {
-      name: 'Deluxe Room',
-      price: '₹2,800',
+      name: 'Deluxe Double Bed Room',
+      price: '₹2,600',
       image: 'https://r1imghtlak.mmtcdn.com/7cd6d47f-10c9-4052-9995-11cff2586933.jpg',
-      features: ['King/Queen bed', 'Mountain View (select rooms)', 'Attached Bathroom', 'TV & Tea/Coffee'],
+      features: ['Without breakfast and dinner', 'Mountain view', 'Attached Bathroom', 'TV & Tea/Coffee'],
     },
     {
-      name: 'Premium Room',
-      price: '₹4,500',
+      name: 'Double Bed Premium Room',
+      price: '₹4,000',
       image: 'https://r1imghtlak.mmtcdn.com/ef945172-b445-4463-982c-7e6d184e4995.jpg',
-      features: ['Spacious layout', 'Best view rooms', 'Complimentary breakfast', 'Ideal for couples'],
+      features: ['Spacious layout', 'Best view rooms', 'Meal plans available', 'Ideal for couples'],
     },
   ];
 

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router';
 import {
   Phone,
   Mail,
@@ -22,22 +23,132 @@ interface BookingFormData {
   phone: string;
   email: string;
   roomType: string;
+  mealPlan: string;
   guests: number;
   checkIn: string;
   checkOut: string;
   specialRequest: string;
 }
 
+const roomOptions = [
+  { value: 'Standard double bedroom', label: 'Standard double bedroom', price: 2000 },
+  { value: 'Deluxe Double Bed Room', label: 'Deluxe Double Bed Room', price: 2600 },
+  { value: 'Double bed premium room', label: 'Double bed premium room', price: 4000 },
+  { value: 'Four bed premium room', label: 'Four bed premium room', price: 6000 },
+  { value: 'Four bed deluxe room', label: 'Four bed deluxe room', price: 3400 },
+];
+
+const mealPlanPriceMap: Record<string, Record<string, number>> = {
+  'Standard double bedroom': {
+    'No meals': 0,
+    'Breakfast only': 200,
+    'Dinner only': 200,
+    'Breakfast and dinner': 400,
+  },
+  'Deluxe Double Bed Room': {
+    'No meals': 0,
+    'Breakfast only': 200,
+    'Dinner only': 200,
+    'Breakfast and dinner': 400,
+  },
+  'Double bed premium room': {
+    'No meals': 0,
+    'Breakfast only': 300,
+    'Dinner only': 300,
+    'Breakfast and dinner': 600,
+  },
+  'Four bed premium room': {
+    'No meals': 0,
+    'Breakfast only': 500,
+    'Dinner only': 500,
+    'Breakfast and dinner': 1000,
+  },
+  'Four bed deluxe room': {
+    'No meals': 0,
+    'Breakfast only': 300,
+    'Dinner only': 300,
+    'Breakfast and dinner': 600,
+  },
+};
+
+interface BookingSummary {
+  roomType: string;
+  mealPlan: string;
+  totalAmount: number;
+  nights: number;
+}
+
 export default function ContactBooking() {
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [bookingSummary, setBookingSummary] = useState<BookingSummary | null>(null);
 
   const {
     register,
     handleSubmit,
     reset,
+    watch,
+    setValue,
     formState: { errors },
   } = useForm<BookingFormData>();
+
+  const selectedRoomType = watch('roomType');
+  const selectedMealPlan = watch('mealPlan');
+  const checkInDate = watch('checkIn');
+  const checkOutDate = watch('checkOut');
+
+  const selectedRoom = roomOptions.find((room) => room.value === selectedRoomType);
+  const mealPlanOptions = selectedRoom
+    ? [
+        {
+          value: 'No meals',
+          label: 'No meals',
+          price: mealPlanPriceMap[selectedRoom.value]?.['No meals'] ?? 0,
+        },
+        {
+          value: 'Breakfast only',
+          label: 'Breakfast only',
+          price: mealPlanPriceMap[selectedRoom.value]?.['Breakfast only'] ?? 0,
+        },
+        {
+          value: 'Dinner only',
+          label: 'Dinner only',
+          price: mealPlanPriceMap[selectedRoom.value]?.['Dinner only'] ?? 0,
+        },
+        {
+          value: 'Breakfast and dinner',
+          label: 'Breakfast and dinner',
+          price: mealPlanPriceMap[selectedRoom.value]?.['Breakfast and dinner'] ?? 0,
+        },
+      ]
+    : [
+        { value: 'No meals', label: 'No meals', price: 0 },
+        { value: 'Breakfast only', label: 'Breakfast only', price: 0 },
+        { value: 'Dinner only', label: 'Dinner only', price: 0 },
+        { value: 'Breakfast and dinner', label: 'Breakfast and dinner', price: 0 },
+      ];
+
+  const selectedMealPlanOption = mealPlanOptions.find(
+    (meal) => meal.value === selectedMealPlan
+  );
+  const mealPrice = selectedRoom && selectedMealPlan
+    ? mealPlanPriceMap[selectedRoom.value]?.[selectedMealPlan] ?? 0
+    : 0;
+
+  const getNightCount = (checkIn: string, checkOut: string) => {
+    if (!checkIn || !checkOut) return 1;
+    const [year, month, day] = checkIn.split('-').map(Number);
+    const [outYear, outMonth, outDay] = checkOut.split('-').map(Number);
+    const start = new Date(year, month - 1, day);
+    const end = new Date(outYear, outMonth - 1, outDay);
+    const diffTime = end.getTime() - start.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 1;
+  };
+
+  const nights = getNightCount(checkInDate || '', checkOutDate || '');
+  const calculatedTotal = selectedRoom ? selectedRoom.price * nights + mealPrice * nights : 0;
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -47,12 +158,20 @@ export default function ContactBooking() {
     const newBooking: Booking = {
       id: Date.now().toString(),
       ...data,
+      totalAmount: calculatedTotal,
+      nights,
       status: 'Pending',
       createdAt: new Date().toISOString(),
     };
 
     try {
       await createBooking(newBooking);
+      setBookingSummary({
+        roomType: data.roomType,
+        mealPlan: data.mealPlan,
+        totalAmount: calculatedTotal,
+        nights,
+      });
       toast.success('Booking request submitted successfully!');
       reset();
       setShowSuccess(true);
@@ -63,6 +182,8 @@ export default function ContactBooking() {
       setIsSubmitting(false);
       setTimeout(() => {
         setShowSuccess(false);
+        setBookingSummary(null);
+        navigate('/');
       }, 5000);
     }
   };
@@ -175,9 +296,11 @@ export default function ContactBooking() {
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
                     >
                       <option value="">Select Room Type</option>
-                      <option value="Single Bed">Single Bed Room - ₹1,500</option>
-                      <option value="Double Bed">Double Bed Room - ₹2,500</option>
-                      <option value="Four Bed Family">Four Bed Family Room - ₹4,000</option>
+                      {roomOptions.map((room) => (
+                        <option key={room.value} value={room.value}>
+                          {room.label} - ₹{room.price.toLocaleString()}
+                        </option>
+                      ))}
                     </select>
                     {errors.roomType && (
                       <p className="text-red-600 text-sm mt-1">{errors.roomType.message}</p>
@@ -185,22 +308,68 @@ export default function ContactBooking() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-semibold mb-2">Number of Guests *</label>
-                    <input
-                      {...register('guests', {
-                        required: 'Number of guests is required',
-                        min: { value: 1, message: 'At least 1 guest required' },
-                        max: { value: 10, message: 'Maximum 10 guests allowed' },
-                      })}
-                      type="number"
-                      min="1"
-                      max="10"
+                    <label className="block text-sm font-semibold mb-2">Meal Plan *</label>
+                    <select
+                      {...register('mealPlan', { required: 'Please select a meal plan' })}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
-                      placeholder="Number of guests"
-                    />
-                    {errors.guests && (
-                      <p className="text-red-600 text-sm mt-1">{errors.guests.message}</p>
+                    >
+                      <option value="">Select Meal Plan</option>
+                      {mealPlanOptions.map((meal) => (
+                        <option key={meal.value} value={meal.value}>
+                          {meal.label} {meal.price > 0 ? `- ₹${meal.price.toLocaleString()}` : ''}
+                        </option>
+                      ))}
+                    </select>
+                    {errors.mealPlan && (
+                      <p className="text-red-600 text-sm mt-1">{errors.mealPlan.message}</p>
                     )}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold mb-2">Number of Guests *</label>
+                  <input
+                    {...register('guests', {
+                      required: 'Number of guests is required',
+                      min: { value: 1, message: 'At least 1 guest required' },
+                      max: { value: 10, message: 'Maximum 10 guests allowed' },
+                    })}
+                    type="number"
+                    min="1"
+                    max="10"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
+                    placeholder="Number of guests"
+                  />
+                  {errors.guests && (
+                    <p className="text-red-600 text-sm mt-1">{errors.guests.message}</p>
+                  )}
+                </div>
+
+                <div className="rounded-xl border border-purple-200 bg-purple-50 p-4 shadow-sm">
+                  <div className="flex items-center justify-between text-sm text-gray-700">
+                    <span>Selected room</span>
+                    <span className="font-semibold text-gray-900">
+                      {selectedRoom ? selectedRoom.label : 'Not selected'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-gray-700 mt-2">
+                    <span>Meal plan</span>
+                    <span className="font-semibold text-gray-900">
+                      {selectedMealPlanOption ? selectedMealPlanOption.label : 'Not selected'}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm text-gray-700 mt-2">
+                    <span>Stay duration</span>
+                    <span className="font-semibold text-gray-900">{nights} day{nights > 1 ? 's' : ''}</span>
+                  </div>
+                  <div className="mt-4 border-t border-purple-200 pt-3">
+                    <div className="flex items-center justify-between text-base font-semibold text-purple-900">
+                      <span>Estimated total</span>
+                      <span>₹{calculatedTotal.toLocaleString()}</span>
+                    </div>
+                    <p className="text-xs text-purple-700 mt-1">
+                      Calculated for {nights} day{nights > 1 ? 's' : ''} of stay
+                    </p>
                   </div>
                 </div>
 
@@ -211,6 +380,9 @@ export default function ContactBooking() {
                       {...register('checkIn', { required: 'Check-in date is required' })}
                       type="date"
                       min={new Date().toISOString().split('T')[0]}
+                      onChange={(e) => {
+                        setValue('checkOut', '');
+                      }}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
                     />
                     {errors.checkIn && (
@@ -223,7 +395,13 @@ export default function ContactBooking() {
                     <input
                       {...register('checkOut', { required: 'Check-out date is required' })}
                       type="date"
-                      min={new Date().toISOString().split('T')[0]}
+                      min={checkInDate || new Date().toISOString().split('T')[0]}
+                      onChange={(e) => {
+                        const selectedCheckout = e.target.value;
+                        if (checkInDate && selectedCheckout && selectedCheckout < checkInDate) {
+                          setValue('checkOut', '');
+                        }
+                      }}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
                     />
                     {errors.checkOut && (
@@ -410,12 +588,35 @@ export default function ContactBooking() {
               </svg>
             </div>
             <h3 className="text-2xl font-bold mb-2">Booking Request Submitted!</h3>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 mb-4">
               Thank you for choosing Hotel Pandey Residency. We will contact you shortly to
               confirm your booking.
             </p>
+            {bookingSummary && (
+              <div className="rounded-lg border border-green-200 bg-green-50 p-4 mb-6 text-left text-sm text-gray-700">
+                <p className="font-semibold text-gray-900">Booking summary</p>
+                <div className="mt-2 space-y-1">
+                  <p>
+                    <span className="font-medium">Room:</span> {bookingSummary.roomType}
+                  </p>
+                  <p>
+                    <span className="font-medium">Meal plan:</span> {bookingSummary.mealPlan}
+                  </p>
+                  <p>
+                    <span className="font-medium">Stay:</span> {bookingSummary.nights} day{bookingSummary.nights > 1 ? 's' : ''}
+                  </p>
+                  <p>
+                    <span className="font-medium">Total amount:</span> ₹{bookingSummary.totalAmount.toLocaleString()}
+                  </p>
+                </div>
+              </div>
+            )}
             <button
-              onClick={() => setShowSuccess(false)}
+              onClick={() => {
+                setShowSuccess(false);
+                setBookingSummary(null);
+                navigate('/');
+              }}
               className="px-6 py-2 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-700 transition-colors"
             >
               Close
