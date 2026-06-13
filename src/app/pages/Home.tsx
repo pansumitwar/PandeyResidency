@@ -27,22 +27,34 @@ export default function Home() {
 
   const rooms = [
     {
-      name: 'Standard Double Bedroom',
+      name: 'Standard double bedroom',
       price: '₹2,000',
       image: 'https://r1imghtlak.mmtcdn.com/750dec07-f94c-41f6-8c47-2886afea4164.jpeg',
-      features: ['Without breakfast', 'Comfortable double bed', 'Attached Bathroom', 'Free WiFi'],
+      features: ['Comfortable double bed', 'Attached bathroom', 'Free WiFi', 'Ideal for couples'],
     },
     {
       name: 'Deluxe Double Bed Room',
       price: '₹2,600',
       image: 'https://r1imghtlak.mmtcdn.com/7cd6d47f-10c9-4052-9995-11cff2586933.jpg',
-      features: ['Without breakfast and dinner', 'Mountain view', 'Attached Bathroom', 'TV & Tea/Coffee'],
+      features: ['Mountain view', 'Attached bathroom', 'TV & tea/coffee', 'Meal plans available'],
     },
     {
-      name: 'Double Bed Premium Room',
+      name: 'Double bed premium room',
       price: '₹4,000',
       image: 'https://r1imghtlak.mmtcdn.com/ef945172-b445-4463-982c-7e6d184e4995.jpg',
-      features: ['Spacious layout', 'Best view rooms', 'Meal plans available', 'Ideal for couples'],
+      features: ['Spacious layout', 'Premium comfort', 'Best view rooms', 'Ideal for families'],
+    },
+    {
+      name: 'Four bed premium room',
+      price: '₹6,000',
+      image: '',
+      features: ['Large family-friendly space', 'Shared premium amenities', 'Great for group stays', 'Meal plans available'],
+    },
+    {
+      name: 'Four bed deluxe room',
+      price: '₹3,400',
+      image: '',
+      features: ['Comfortable group stay', 'Deluxe interiors', 'Convenient for families', 'Flexible meal options'],
     },
   ];
 
@@ -224,7 +236,7 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
             {rooms.map((room, index) => (
               <motion.div
                 key={index}
@@ -234,12 +246,22 @@ export default function Home() {
                 transition={{ delay: index * 0.1 }}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all hover:-translate-y-2"
               >
-                <div className="relative h-64 overflow-hidden">
-                  <ImageWithFallback
-                    src={room.image}
-                    alt={room.name}
-                    className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
-                  />
+                <div className="relative h-64 overflow-hidden bg-gradient-to-br from-purple-100 via-white to-indigo-100">
+                  {room.image ? (
+                    <ImageWithFallback
+                      src={room.image}
+                      alt={room.name}
+                      className="w-full h-full object-cover hover:scale-110 transition-transform duration-500"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center p-6 text-center">
+                      <div>
+                        <Bed className="w-12 h-12 mx-auto mb-3 text-purple-600" />
+                        <p className="text-lg font-semibold text-gray-700">Room photo coming soon</p>
+                        <p className="text-sm text-gray-500 mt-1">Details below are available now</p>
+                      </div>
+                    </div>
+                  )}
                   <div className="absolute top-4 right-4 bg-white px-4 py-2 rounded-full shadow-lg">
                     <span className="font-bold text-purple-600">{room.price}</span>
                     <span className="text-sm text-gray-600">/night</span>
