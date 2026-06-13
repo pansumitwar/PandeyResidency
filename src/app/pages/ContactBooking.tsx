@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
 import {
@@ -136,19 +136,50 @@ export default function ContactBooking() {
     ? mealPlanPriceMap[selectedRoom.value]?.[selectedMealPlan] ?? 0
     : 0;
 
+  const parseDateInput = (value: string) => {
+    const [year, month, day] = value.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  };
+
   const getNightCount = (checkIn: string, checkOut: string) => {
     if (!checkIn || !checkOut) return 1;
-    const [year, month, day] = checkIn.split('-').map(Number);
-    const [outYear, outMonth, outDay] = checkOut.split('-').map(Number);
-    const start = new Date(year, month - 1, day);
-    const end = new Date(outYear, outMonth - 1, outDay);
+
+    const start = parseDateInput(checkIn);
+    const end = parseDateInput(checkOut);
+
+    if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) {
+      return 1;
+    }
+
     const diffTime = end.getTime() - start.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 1;
   };
 
   const nights = getNightCount(checkInDate || '', checkOutDate || '');
   const calculatedTotal = selectedRoom ? selectedRoom.price * nights + mealPrice * nights : 0;
+  const today = new Date().toISOString().split('T')[0];
+  const checkoutMinDate = checkInDate || today;
+
+  const handleCheckInChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const nextCheckIn = e.target.value;
+    setValue('checkIn', nextCheckIn, { shouldDirty: true, shouldValidate: true });
+
+    if (checkOutDate && nextCheckIn && nextCheckIn > checkOutDate) {
+      setValue('checkOut', '', { shouldDirty: true, shouldValidate: true });
+    }
+  };
+
+  const handleCheckOutChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const selectedCheckout = e.target.value;
+
+    if (checkInDate && selectedCheckout && selectedCheckout < checkInDate) {
+      setValue('checkOut', '', { shouldDirty: true, shouldValidate: true });
+      return;
+    }
+
+    setValue('checkOut', selectedCheckout, { shouldDirty: true, shouldValidate: true });
+  };
 
   const onSubmit = async (data: BookingFormData) => {
     setIsSubmitting(true);
@@ -379,10 +410,8 @@ export default function ContactBooking() {
                     <input
                       {...register('checkIn', { required: 'Check-in date is required' })}
                       type="date"
-                      min={new Date().toISOString().split('T')[0]}
-                      onChange={(e) => {
-                        setValue('checkOut', '');
-                      }}
+                      min={today}
+                      onChange={handleCheckInChange}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
                     />
                     {errors.checkIn && (
@@ -395,13 +424,8 @@ export default function ContactBooking() {
                     <input
                       {...register('checkOut', { required: 'Check-out date is required' })}
                       type="date"
-                      min={checkInDate || new Date().toISOString().split('T')[0]}
-                      onChange={(e) => {
-                        const selectedCheckout = e.target.value;
-                        if (checkInDate && selectedCheckout && selectedCheckout < checkInDate) {
-                          setValue('checkOut', '');
-                        }
-                      }}
+                      min={checkoutMinDate}
+                      onChange={handleCheckOutChange}
                       className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-purple-600 focus:ring-2 focus:ring-purple-200 outline-none transition-all"
                     />
                     {errors.checkOut && (
