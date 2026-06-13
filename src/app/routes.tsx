@@ -5,6 +5,7 @@ import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import NearbyPlaces from "./pages/NearbyPlaces";
 import ContactBooking from "./pages/ContactBooking";
+import ViewBookings from "./pages/ViewBookings";
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import NotFound from "./pages/NotFound";
@@ -19,6 +20,7 @@ export const router = createBrowserRouter([
       { path: "gallery", Component: Gallery },
       { path: "nearby-places", Component: NearbyPlaces },
       { path: "contact-booking", Component: ContactBooking },
+      { path: "view-bookings", Component: ViewBookings },
       { path: "*", Component: NotFound },
     ],
   },

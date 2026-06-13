@@ -27,6 +27,7 @@ export default function Navbar() {
     { name: 'Gallery', path: '/gallery' },
     { name: 'Nearby Places', path: '/nearby-places' },
     { name: 'Contact & Booking', path: '/contact-booking' },
+    { name: 'View Bookings', path: '/view-bookings' },
   ];
 
   return (
